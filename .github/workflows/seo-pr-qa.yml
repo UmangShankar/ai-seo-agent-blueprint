@@ -1,0 +1,27 @@
+name: SEO PR QA
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pr-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run lint
+      - name: SEO smoke test
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          SITEMAP_URL: ${{ vars.SITEMAP_URL }}
+          SEO_AUDIT_MAX_URLS: "10"
+        run: npm run seo:canonical-audit
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr-seo-qa
+          path: seo-reports/
