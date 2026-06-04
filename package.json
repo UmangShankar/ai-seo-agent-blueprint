@@ -1,0 +1,34 @@
+{
+  "name": "ai-seo-agent-blueprint",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Human-reviewed SEO audit pipeline starter kit.",
+  "type": "module",
+  "scripts": {
+    "seo:canonical-audit": "tsx scripts/seo-agent/run-canonical-audit.ts",
+    "seo:metadata-audit": "tsx scripts/seo-agent/run-metadata-audit.ts",
+    "seo:link-audit": "tsx scripts/seo-agent/run-link-audit.ts",
+    "seo:report": "tsx scripts/seo-agent/run-seo-report.ts",
+    "seo:pr-pack": "tsx scripts/seo-agent/run-pr-pack.ts",
+    "seo:post-implementation-qa": "tsx scripts/seo-agent/run-post-implementation-qa.ts",
+    "test": "tsx scripts/seo-agent/tests/smoke.ts",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "seo",
+    "technical-seo",
+    "canonical",
+    "sitemap",
+    "github-actions"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "fast-xml-parser": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.17",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.3"
+  }
+}
