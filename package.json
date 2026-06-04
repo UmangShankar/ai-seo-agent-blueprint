@@ -4,6 +4,9 @@
   "private": false,
   "description": "Human-reviewed SEO audit pipeline starter kit.",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "seo:canonical-audit": "tsx scripts/seo-agent/run-canonical-audit.ts",
     "seo:metadata-audit": "tsx scripts/seo-agent/run-metadata-audit.ts",
@@ -12,7 +15,8 @@
     "seo:pr-pack": "tsx scripts/seo-agent/run-pr-pack.ts",
     "seo:post-implementation-qa": "tsx scripts/seo-agent/run-post-implementation-qa.ts",
     "test": "tsx scripts/seo-agent/tests/smoke.ts",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "ci": "npm run lint && npm test"
   },
   "keywords": [
     "seo",

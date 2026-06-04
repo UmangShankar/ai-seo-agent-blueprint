@@ -24,7 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - name: Run SEO report
         env:
           SITE_URL: ${{ inputs.site_url }}
@@ -33,6 +34,16 @@ jobs:
         run: npm run seo:report
       - name: Generate approval pack
         run: npm run seo:pr-pack
+      - name: Verify reports
+        shell: bash
+        run: |
+          test -f seo-reports/canonical-audit.json
+          test -f seo-reports/canonical-audit.md
+          test -f seo-reports/metadata-audit.json
+          test -f seo-reports/metadata-audit.md
+          test -f seo-reports/link-audit.json
+          test -f seo-reports/link-audit.md
+          test -f seo-reports/approval-pack.md
       - uses: actions/upload-artifact@v4
         with:
           name: manual-seo-audit
