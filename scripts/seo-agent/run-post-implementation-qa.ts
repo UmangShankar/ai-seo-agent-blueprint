@@ -1,12 +1,19 @@
 import { spawnSync } from 'node:child_process';
 
-const commands = [
-  ['npm', ['run', 'seo:canonical-audit']],
-  ['npm', ['run', 'seo:metadata-audit']]
-];
+const scripts = ['seo:canonical-audit', 'seo:metadata-audit'];
 
-for (const [command, args] of commands) {
-  const result = spawnSync(command, args as string[], { stdio: 'inherit', shell: process.platform === 'win32' });
+function npmRun(script: string) {
+  if (process.env.npm_execpath) {
+    return spawnSync(process.execPath, [process.env.npm_execpath, 'run', script], { stdio: 'inherit' });
+  }
+
+  const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  return spawnSync(npmCommand, ['run', script], { stdio: 'inherit' });
+}
+
+for (const script of scripts) {
+  const result = npmRun(script);
+  if (result.error) console.error(result.error);
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 

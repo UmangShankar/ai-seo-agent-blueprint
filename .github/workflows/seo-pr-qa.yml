@@ -13,7 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm run lint
       - name: SEO smoke test
         env:
@@ -21,6 +22,11 @@ jobs:
           SITEMAP_URL: ${{ vars.SITEMAP_URL }}
           SEO_AUDIT_MAX_URLS: "10"
         run: npm run seo:canonical-audit
+      - name: Verify PR report
+        shell: bash
+        run: |
+          test -f seo-reports/canonical-audit.json
+          test -f seo-reports/canonical-audit.md
       - uses: actions/upload-artifact@v4
         with:
           name: pr-seo-qa
