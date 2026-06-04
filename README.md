@@ -117,6 +117,10 @@ The workflows run CI, scheduled reports, manual audits, and PR QA. Generated `se
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening changes. Report security issues using [SECURITY.md](SECURITY.md).
 
+## Governance
+
+Read [docs/governance.md](docs/governance.md) for maintainer, branch protection, and contribution safety expectations.
+
 ## License
 
 MIT
