@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+seo-reports/*.json
+seo-reports/*.md
+.DS_Store
