@@ -1,9 +1,20 @@
-name: SEO Daily Report
+name: SEO Manual Report
 
 on:
-  schedule:
-    - cron: "0 4 * * *"
   workflow_dispatch:
+    inputs:
+      site_url:
+        description: "Site URL"
+        required: true
+        default: "https://www.example.com"
+      sitemap_url:
+        description: "Sitemap URL"
+        required: true
+        default: "https://www.example.com/sitemap.xml"
+      max_urls:
+        description: "Max URLs, 0 means all"
+        required: true
+        default: "25"
 
 jobs:
   seo-report:
@@ -17,9 +28,9 @@ jobs:
       - run: npm ci
       - name: Run SEO report
         env:
-          SITE_URL: ${{ vars.SITE_URL }}
-          SITEMAP_URL: ${{ vars.SITEMAP_URL }}
-          SEO_AUDIT_MAX_URLS: ${{ vars.SEO_AUDIT_MAX_URLS || '0' }}
+          SITE_URL: ${{ inputs.site_url }}
+          SITEMAP_URL: ${{ inputs.sitemap_url }}
+          SEO_AUDIT_MAX_URLS: ${{ inputs.max_urls }}
         run: npm run seo:report
       - name: Verify reports
         shell: bash

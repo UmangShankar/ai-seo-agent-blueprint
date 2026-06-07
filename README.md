@@ -91,12 +91,15 @@ Set repository variables in GitHub under `Settings -> Secrets and variables -> A
 - `SITEMAP_URL`, for example `https://your-site.com/sitemap.xml`
 - `SEO_AUDIT_MAX_URLS`, for example `100`
 
-The workflows run CI, scheduled reports, manual audits, and PR QA. Generated `seo-reports` files are uploaded as workflow artifacts rather than committed.
+The workflows run CI, manual reports, manual audits, and PR QA. Scheduled SEO runs are disabled by default so a new clone does not consume Actions minutes before a site is configured. Generated `seo-reports` files are uploaded as workflow artifacts rather than committed.
+
+After configuring your own site, you can opt into scheduled reports by adding a `schedule` cron trigger to `.github/workflows/seo-daily-report.yml` and changing the workflow to read your repository variables. Manual dispatch is the safe default for this public blueprint.
 
 ## Common Workflows
 
 - Local audit: configure `.env`, run `npm run seo:report`, then inspect `seo-reports`.
-- Scheduled audit: configure repository variables and let `SEO Daily Report` upload artifacts.
+- Manual report: run `SEO Manual Report` with explicit site, sitemap, and URL-limit inputs.
+- Scheduled audit: disabled by default; add a cron trigger only after configuring your own site variables.
 - Manual audit: run `SEO Manual Audit` from GitHub Actions with explicit inputs.
 - PR QA: pull requests to `main` run linting, tests, and a limited canonical smoke audit.
 - Coding-agent assisted implementation: use generated reports as input, ask an agent to propose changes, then review and approve the PR manually.
